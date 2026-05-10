@@ -556,3 +556,21 @@
     .ft-script{font-size:22px}
     .ft-cr{font-size:12px}
   }
+
+/* ═══ Cookie Banner & Libeldata ═══ */
+@keyframes pulse-libeldata{
+  0%,100%{opacity:1;}
+  50%{opacity:.45;}
+}
+.libeldata-link{
+  animation:pulse-libeldata 3s ease-in-out infinite;
+}
+#cookie-accept{
+  flex-shrink:0;background:#3DD9C0;color:#fff;
+  border:1.5px solid #3DD9C0;cursor:pointer;
+  padding:11px 28px;border-radius:999px;font-weight:800;font-size:14px;
+  font-family:'Mulish',sans-serif;
+  transition:background .2s, color .2s, border-color .2s, transform .15s;
+  white-space:nowrap;
+}
+#cookie-accept:hover{background:#1F2D3D;color:#fff;border-color:#1F2D3D;transform:translateY(-1px);}
