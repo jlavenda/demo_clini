@@ -128,13 +128,21 @@
   if(svcHash && svcHash.startsWith('#svc-')){
     const card = document.querySelector(svcHash);
     if(card){
-      setTimeout(() => {
-        card.classList.add('visible'); // asegurar que sea visible
-        card.classList.add('svc-flash');
-        card.addEventListener('animationend', () => {
-          card.classList.remove('svc-flash');
-        }, { once: true });
-      }, 600);
+      // Esperar a que el IntersectionObserver haga visible la card
+      // antes de disparar el flash
+      const flashObserver = new IntersectionObserver((entries) => {
+        if(entries[0].isIntersecting){
+          flashObserver.disconnect();
+          // Pequeño delay para que el fade-up del reveal termine
+          setTimeout(() => {
+            card.classList.add('svc-flash');
+            card.addEventListener('animationend', () => {
+              card.classList.remove('svc-flash');
+            }, { once: true });
+          }, 700);
+        }
+      }, { threshold: 0.3 });
+      flashObserver.observe(card);
     }
   }
 
