@@ -128,21 +128,19 @@
   if(svcHash && svcHash.startsWith('#svc-')){
     const card = document.querySelector(svcHash);
     if(card){
-      // Esperar a que el IntersectionObserver haga visible la card
-      // antes de disparar el flash
-      const flashObserver = new IntersectionObserver((entries) => {
-        if(entries[0].isIntersecting){
-          flashObserver.disconnect();
-          // Pequeño delay para que el fade-up del reveal termine
-          setTimeout(() => {
-            card.classList.add('svc-flash');
-            card.addEventListener('animationend', () => {
-              card.classList.remove('svc-flash');
-            }, { once: true });
-          }, 700);
-        }
-      }, { threshold: 0.3 });
-      flashObserver.observe(card);
+      const triggerFlash = () => {
+        card.classList.add('svc-flash');
+        card.addEventListener('animationend', () => {
+          card.classList.remove('svc-flash');
+        }, { once: true });
+      };
+      // scrollend se dispara exactamente cuando el scroll suave termina
+      if('onscrollend' in window){
+        window.addEventListener('scrollend', triggerFlash, { once: true });
+      } else {
+        // Fallback para Safari y navegadores sin scrollend
+        setTimeout(triggerFlash, 1200);
+      }
     }
   }
 
