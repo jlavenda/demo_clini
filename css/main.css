@@ -576,14 +576,14 @@
 #cookie-accept:hover{background:#1F2D3D;color:#fff;border-color:#1F2D3D;transform:translateY(-1px);}
 
 /* ═══ Service card highlight flash desde footer ═══ */
-@keyframes svcHighlight{
-  0%  { box-shadow:0 2px 20px rgba(0,0,0,.05); }
-  25% { box-shadow:inset 0 0 0 2px var(--teal), 0 0 28px rgba(61,217,192,.4); }
-  55% { box-shadow:0 2px 20px rgba(0,0,0,.05); }
-  80% { box-shadow:inset 0 0 0 2px var(--teal), 0 0 28px rgba(61,217,192,.4); }
-  100%{ box-shadow:0 2px 20px rgba(0,0,0,.05); }
+[id^="svc-"]{
+  scroll-margin-top:80px;
+  position:relative;
+}
+@keyframes svcRipple{
+  0%  { box-shadow:0 0 0 0px rgba(61,217,192,.5), 0 0 0 0px rgba(61,217,192,.3), 0 0 0 0px rgba(61,217,192,.15); }
+  100%{ box-shadow:0 0 0 12px rgba(61,217,192,0), 0 0 0 24px rgba(61,217,192,0), 0 0 0 40px rgba(61,217,192,0); }
 }
 .svc-flash{
-  animation:svcHighlight 2.2s ease forwards;
+  animation:svcRipple 1.8s ease-out forwards;
 }
-[id^="svc-"]{scroll-margin-top:80px;}

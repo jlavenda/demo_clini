@@ -124,25 +124,35 @@
   }
 
   // ── Service card highlight desde footer ──
-  const svcHash = window.location.hash;
-  if(svcHash && svcHash.startsWith('#svc-')){
-    const card = document.querySelector(svcHash);
-    if(card){
-      const triggerFlash = () => {
-        card.classList.add('svc-flash');
-        card.addEventListener('animationend', () => {
-          card.classList.remove('svc-flash');
-        }, { once: true });
-      };
-      // scrollend se dispara exactamente cuando el scroll suave termina
+  // Interceptamos el clic ANTES de que el navegador haga el scroll
+  document.querySelectorAll('a[href^="#svc-"]').forEach(link => {
+    link.addEventListener('click', function(e){
+      e.preventDefault();
+      const targetId = this.getAttribute('href');
+      const card = document.querySelector(targetId);
+      if(!card) return;
+
+      // Scroll suave manual
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      // Disparar flash cuando el scroll termine
       if('onscrollend' in window){
-        window.addEventListener('scrollend', triggerFlash, { once: true });
+        window.addEventListener('scrollend', () => {
+          card.classList.add('svc-flash');
+          card.addEventListener('animationend', () => {
+            card.classList.remove('svc-flash');
+          }, { once: true });
+        }, { once: true });
       } else {
-        // Fallback para Safari y navegadores sin scrollend
-        setTimeout(triggerFlash, 1200);
+        setTimeout(() => {
+          card.classList.add('svc-flash');
+          card.addEventListener('animationend', () => {
+            card.classList.remove('svc-flash');
+          }, { once: true });
+        }, 1000);
       }
-    }
-  }
+    });
+  });
 
   // ── Hamburguesa mobile ──
   const menuBtn    = document.getElementById('menuBtn');
