@@ -577,13 +577,13 @@
 
 /* ═══ Service card highlight flash desde footer ═══ */
 @keyframes svcHighlight{
-  0%  { background:inherit; }
-  25% { background:rgba(61,217,192,.18); }
-  50% { background:rgba(61,217,192,.08); }
-  75% { background:rgba(61,217,192,.18); }
-  100%{ background:inherit; }
+  0%  { box-shadow:0 2px 20px rgba(0,0,0,.05); }
+  25% { box-shadow:inset 0 0 0 2px var(--teal), 0 0 28px rgba(61,217,192,.4); }
+  55% { box-shadow:0 2px 20px rgba(0,0,0,.05); }
+  80% { box-shadow:inset 0 0 0 2px var(--teal), 0 0 28px rgba(61,217,192,.4); }
+  100%{ box-shadow:0 2px 20px rgba(0,0,0,.05); }
 }
 .svc-flash{
-  animation: svcHighlight 2s ease forwards;
+  animation:svcHighlight 2.2s ease forwards;
 }
 [id^="svc-"]{scroll-margin-top:80px;}
