@@ -123,6 +123,21 @@
     return false;
   }
 
+  // ── Service card highlight desde footer ──
+  const svcHash = window.location.hash;
+  if(svcHash && svcHash.startsWith('#svc-')){
+    const card = document.querySelector(svcHash);
+    if(card){
+      setTimeout(() => {
+        card.classList.add('visible'); // asegurar que sea visible
+        card.classList.add('svc-flash');
+        card.addEventListener('animationend', () => {
+          card.classList.remove('svc-flash');
+        }, { once: true });
+      }, 600);
+    }
+  }
+
   // ── Hamburguesa mobile ──
   const menuBtn    = document.getElementById('menuBtn');
   const mobileMenu = document.getElementById('mobileMenu');
